@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import ProjectCard from '../components/ProjectCard';
+import TechnicalHighlights from '../components/TechnicalHighlights';
 import { getFeaturedProjects, projects } from '../data/projects';
 
 const Home = () => {
@@ -83,6 +84,7 @@ const Home = () => {
                     ))}
                 </ul>
             </section>
+            <TechnicalHighlights />
         </div>
     )
 };
