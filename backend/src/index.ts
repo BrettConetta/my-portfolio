@@ -1,7 +1,15 @@
+import cors from "cors";
 import express, { Request, Response } from "express";
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+].filter((origin): origin is string => Boolean(origin));
+
+app.use(cors({ origin: allowedOrigins }));
 
 app.use(express.json());
 
