@@ -21,3 +21,13 @@
   --color-icon-muted: var(--color-slate-600);
   --color-interactive: var(--color-slate-700);
 }
+
+@layer base {
+  html {
+    @apply bg-page;
+  }
+
+  body {
+    @apply min-h-full bg-page text-foreground;
+  }
+}
