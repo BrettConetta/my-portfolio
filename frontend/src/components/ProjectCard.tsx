@@ -7,7 +7,7 @@ import Tag from './Tag';
 function ProjectLinkText({ link }: { link: ProjectLink }) {
   const external = linkOpensExternally(link.href, link.external);
   const className =
-    'text-sm text-slate-400 underline-offset-4 transition-colors hover:text-sky-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
+    'text-sm text-muted underline-offset-4 transition-colors hover:text-link hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus';
 
   if (external) {
     return (
@@ -33,14 +33,14 @@ function ProjectCardMedia({ project }: { project: Project }) {
   if (project.kind === 'cli') {
     return (
       <div
-        className="flex aspect-video flex-col border-b border-slate-700 bg-slate-950"
+        className="flex aspect-video flex-col border-b border-border bg-page"
         aria-hidden
       >
-        <div className="flex items-center gap-2 border-b border-slate-800 px-3 py-2">
+        <div className="flex items-center gap-2 border-b border-border-subtle px-3 py-2">
           <Tag>CLI tool</Tag>
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <FaTerminal className="h-14 w-14 text-slate-600" />
+          <FaTerminal className="h-14 w-14 text-icon-muted" />
         </div>
       </div>
     );
@@ -51,14 +51,14 @@ function ProjectCardMedia({ project }: { project: Project }) {
       <img
         src={project.imageUrl}
         alt={project.imageAlt ?? project.title}
-        className="aspect-video w-full border-b border-slate-700 object-cover"
+        className="aspect-video w-full border-b border-border object-cover"
       />
     );
   }
 
   return (
     <div
-      className="aspect-video w-full border-b border-slate-700 bg-linear-to-br from-slate-800 to-slate-950"
+      className="aspect-video w-full border-b border-border bg-linear-to-br from-surface-muted to-page"
       aria-hidden
     />
   );
@@ -73,15 +73,15 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
   return (
     <article
-      className={`flex h-full flex-col overflow-hidden rounded-md border border-slate-700 bg-slate-900/95 ${
-        project.featured ? 'ring-1 ring-cyan-700/40' : ''
+      className={`flex h-full flex-col overflow-hidden rounded-md border border-border bg-surface/95 ${
+        project.featured ? 'ring-1 ring-accent/40' : ''
       }`}
     >
       <ProjectCardMedia project={project} />
       <div className="flex flex-1 flex-col gap-3 p-4">
         <div className="space-y-2">
-          <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-          <p className="text-sm leading-relaxed text-slate-400">
+          <h3 className="text-lg font-semibold text-heading">{project.title}</h3>
+          <p className="text-sm leading-relaxed text-muted">
             {project.summary}
           </p>
         </div>

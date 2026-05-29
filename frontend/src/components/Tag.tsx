@@ -4,7 +4,7 @@ type TagProps = {
 };
 
 const tagClassName =
-  'rounded-md bg-slate-800 px-2 py-0.5 text-xs font-medium text-slate-300';
+  'rounded-md bg-surface-muted px-2 py-0.5 text-xs font-medium text-secondary';
 
 function joinClassNames(...classes: (string | undefined)[]) {
   return classes.filter(Boolean).join(' ');

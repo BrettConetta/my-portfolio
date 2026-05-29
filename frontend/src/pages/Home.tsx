@@ -13,14 +13,14 @@ const Home = () => {
         <div className="space-y-12">
             <section className="pt-6 sm:pt-10">
                 <div className="max-w-3xl">
-                    <h1 className="text-4xl font-semibold text-white">Brett Conetta</h1>
-                    <p className="mt-2 text-2xl text-slate-300">Full Stack Software Engineer</p>
-                    <p className="mt-4 text-lg text-slate-300">Building production-ready systems across Java, Spring Boot, React, and AWS. Five years of experience shipping real software, leading teams, and caring about the craft.</p>
-                    <p className="mt-4 text-base text-slate-400">
+                    <h1 className="text-4xl font-semibold text-heading">Brett Conetta</h1>
+                    <p className="mt-2 text-2xl text-secondary">Full Stack Software Engineer</p>
+                    <p className="mt-4 text-lg text-secondary">Building production-ready systems across Java, Spring Boot, React, and AWS. Five years of experience shipping real software, leading teams, and caring about the craft.</p>
+                    <p className="mt-4 text-base text-muted">
                         Based near Princeton, NJ. I prefer remote work and am open to hybrid or onsite roles
                         for the right fit.
                     </p>
-                    <p className="mt-2 text-base text-slate-400">
+                    <p className="mt-2 text-base text-muted">
                         Open to full-time roles and contract work—happy to connect by email or for a quick
                         call.
                     </p>
@@ -50,10 +50,10 @@ const Home = () => {
                         href="https://github.com/BrettConetta"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative inline-flex h-8 w-8 shrink-0 items-center justify-center text-slate-200 transition-colors hover:text-white"
+                        className="group relative inline-flex h-8 w-8 shrink-0 items-center justify-center text-nav transition-colors hover:text-heading"
                     >
                         <span
-                            className="pointer-events-none absolute inset-0 rounded-full bg-slate-700 opacity-0 transition-opacity group-hover:opacity-100"
+                            className="pointer-events-none absolute inset-0 rounded-full bg-interactive opacity-0 transition-opacity group-hover:opacity-100"
                             aria-hidden
                         />
                         <FaGithub className="relative z-10 h-8 w-8" aria-hidden />
@@ -62,10 +62,10 @@ const Home = () => {
                         href="https://www.linkedin.com/in/brett-conetta/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative inline-flex h-8 -ml-0.5 shrink-0 items-center justify-center text-slate-200 transition-colors hover:text-white"
+                        className="group relative inline-flex h-8 -ml-0.5 shrink-0 items-center justify-center text-nav transition-colors hover:text-heading"
                     >
                         <span
-                            className="pointer-events-none absolute inset-[2px] rounded-sm bg-slate-700 opacity-0 transition-opacity group-hover:opacity-100"
+                            className="pointer-events-none absolute inset-[2px] rounded-sm bg-interactive opacity-0 transition-opacity group-hover:opacity-100"
                             aria-hidden
                         />
                         <FaLinkedin className="relative z-10 h-8 w-auto" aria-hidden />

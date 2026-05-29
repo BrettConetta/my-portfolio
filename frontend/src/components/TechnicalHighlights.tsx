@@ -36,9 +36,9 @@ const TechnicalHighlights = () => {
       <ul className="mt-6 grid gap-6 md:grid-cols-3">
         {highlights.map((highlight) => (
           <li key={highlight.title}>
-            <article className="h-full rounded-md border border-slate-700 bg-slate-900/95 p-4">
-              <h3 className="text-lg font-semibold text-white">{highlight.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-400">{highlight.summary}</p>
+            <article className="h-full rounded-md border border-border bg-surface/95 p-4">
+              <h3 className="text-lg font-semibold text-heading">{highlight.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{highlight.summary}</p>
               <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${highlight.title} technologies`}>
                 {highlight.items.map((item) => (
                   <li key={item}>

@@ -15,12 +15,12 @@ type ButtonProps = {
 };
 
 const baseClassName =
-  'inline-flex shrink-0 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
+  'inline-flex shrink-0 items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus';
 
 const variantClassNames: Record<ButtonVariant, string> = {
-  primary: 'bg-cyan-700 text-white hover:bg-cyan-600',
+  primary: 'bg-accent text-heading hover:bg-accent-hover',
   secondary:
-    'border border-slate-700 bg-slate-900/95 text-white hover:bg-slate-700',
+    'border border-border bg-surface/95 text-heading hover:bg-interactive',
 };
 
 function joinClassNames(...classes: (string | undefined)[]) {

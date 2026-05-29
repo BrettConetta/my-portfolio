@@ -30,8 +30,8 @@ export const router = createBrowserRouter([
         path: '*',
         element: (
           <div>
-            <h1 className="text-2xl font-semibold text-white">Not found</h1>
-            <p className="mt-2 text-slate-400">This page does not exist.</p>
+            <h1 className="text-2xl font-semibold text-heading">Not found</h1>
+            <p className="mt-2 text-muted">This page does not exist.</p>
           </div>
         ),
       },
