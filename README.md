@@ -27,7 +27,7 @@ Run both services for full-stack behavior (nav loads from the API via Vite’s `
 ### Local development
 The frontend uses relative `/api` URLs; Vite proxies them to `http://localhost:3001`. The backend allows `http://localhost:5173` for CORS.
 
-Nav works without extra config. The **contact form** needs SMTP credentials in `backend/.env` (see [Contact form email](#contact-form-email) below).
+Nav works without extra config. The **contact form** needs a Resend API key in `backend/.env` (see [Contact form email](#contact-form-email) below).
 
 ### Railway
 
@@ -36,25 +36,25 @@ Nav works without extra config. The **contact form** needs SMTP credentials in `
 | Frontend | `VITE_API_URL`  | `https://backend-production-12c71.up.railway.app` |
 | Backend  | `FRONTEND_URL`  | `https://frontend-production-bb6e.up.railway.app` |
 | Backend  | `CONTACT_TO`    | `brettconetta76@gmail.com` |
-| Backend  | `SMTP_USER`     | `brettconetta76@gmail.com` |
-| Backend  | `SMTP_PASS`     | Your Gmail App Password (see below) |
+| Backend  | `RESEND_API_KEY`| Your Resend API key (see below) |
 
 Set these on each Railway service, then redeploy the frontend so `VITE_API_URL` is baked into the build.
 
 ### Contact form email
 
-The contact form sends mail through Gmail SMTP using [Nodemailer](https://nodemailer.com/). You need a **Gmail App Password** — not your normal Gmail password.
+The contact form sends mail through [Resend](https://resend.com/) over HTTPS (works on Railway; SMTP is blocked on Hobby plans).
 
-#### 1. Create a Gmail App Password
+#### 1. Create a Resend API key
 
-1. Sign in to [Google Account](https://myaccount.google.com/) for `brettconetta76@gmail.com`.
-2. Open **Security**.
-3. Turn on **2-Step Verification** if it is not already enabled (required for app passwords).
-4. Open **App passwords** (search for it on the Security page, or use [Google’s app password help](https://support.google.com/accounts/answer/185833)).
-5. Choose **Mail** and **Other (Custom name)** — e.g. `Portfolio contact form`.
-6. Click **Generate**. Google shows a **16-character password** (often grouped like `abcd efgh ijkl mnop`). Copy it.
+1. Sign up at [resend.com](https://resend.com).
+2. Open **API Keys** and create a key.
+3. Copy the key (starts with `re_`).
 
-#### 2. Where to put the app password
+Without a verified domain, use Resend’s test sender `onboarding@resend.dev`. On the free tier, that address can only deliver to the email you signed up with — use `brettconetta76@gmail.com` for both your Resend account and `CONTACT_TO`.
+
+To use a custom “From” address later, verify your domain in Resend and set `RESEND_FROM` (e.g. `Portfolio contact form <contact@yourdomain.com>`).
+
+#### 2. Where to put the API key
 
 **Local development**
 
@@ -63,11 +63,8 @@ The contact form sends mail through Gmail SMTP using [Nodemailer](https://nodema
 
    ```env
    CONTACT_TO=brettconetta76@gmail.com
-   SMTP_USER=brettconetta76@gmail.com
-   SMTP_PASS=abcdefghijklmnop
+   RESEND_API_KEY=re_your_api_key_here
    ```
-
-   Paste the 16-character app password as `SMTP_PASS` (spaces optional).
 
 3. Restart the backend (`npm run dev` in `backend/`).
 
@@ -76,12 +73,9 @@ The contact form sends mail through Gmail SMTP using [Nodemailer](https://nodema
 In the **backend** service → **Variables**, add:
 
 - `CONTACT_TO` = `brettconetta76@gmail.com`
-- `SMTP_USER` = `brettconetta76@gmail.com`
-- `SMTP_PASS` = your 16-character app password
+- `RESEND_API_KEY` = your Resend API key
 
-Redeploy the backend after saving variables.
-
-You can revoke the app password anytime under Google Account → Security → App passwords without changing your main Gmail password.
+Remove any old `SMTP_USER` / `SMTP_PASS` variables if present. Redeploy the backend after saving.
 
 **Frontend:** root `frontend`, build `npm run build`, start `npm start`  
 **Backend:** root `backend`, build `npm run build`, start `npm start`

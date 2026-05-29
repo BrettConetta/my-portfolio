@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export type ContactEmailPayload = {
   name: string;
@@ -6,41 +6,30 @@ export type ContactEmailPayload = {
   message: string;
 };
 
-function getTransporter() {
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+const DEFAULT_FROM = "Portfolio contact form <onboarding@resend.dev>";
 
-  if (!user || !pass) {
-    throw new Error("SMTP is not configured");
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not configured");
   }
-
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST ?? "smtp.gmail.com",
-    port: Number(process.env.SMTP_PORT ?? 587),
-    secure: false,
-    auth: { user, pass },
-  });
+  return new Resend(apiKey);
 }
 
 export async function sendContactEmail(
   payload: ContactEmailPayload,
 ): Promise<void> {
-  const to = process.env.CONTACT_TO ?? process.env.SMTP_USER;
-
+  const to = process.env.CONTACT_TO;
   if (!to) {
     throw new Error("CONTACT_TO is not configured");
   }
 
-  const fromAddress = process.env.SMTP_USER;
-  if (!fromAddress) {
-    throw new Error("SMTP is not configured");
-  }
+  const from = process.env.RESEND_FROM ?? DEFAULT_FROM;
+  const resend = getResendClient();
 
-  const transporter = getTransporter();
-
-  await transporter.sendMail({
-    from: `"Portfolio contact form" <${fromAddress}>`,
-    to,
+  const { error } = await resend.emails.send({
+    from,
+    to: [to],
     replyTo: payload.email,
     subject: `Portfolio message from ${payload.name}`,
     text: [
@@ -56,6 +45,10 @@ export async function sendContactEmail(
       "<p>" + escapeHtml(payload.message).replace(/\n/g, "<br>") + "</p>",
     ].join("\n"),
   });
+
+  if (error) {
+    throw new Error(error.message);
+  }
 }
 
 function escapeHtml(value: string): string {
