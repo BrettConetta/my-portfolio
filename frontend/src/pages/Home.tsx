@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import ProjectCard from '../components/ProjectCard';
+import Recommendations from '../components/Recommendations';
 import TechnicalHighlights from '../components/TechnicalHighlights';
 import { getFeaturedProjects, projects } from '../data/projects';
 
@@ -9,11 +10,19 @@ const Home = () => {
 
     return (
         <div className="space-y-12">
-            <section className="pt-6 pb-10 sm:pt-10 sm:pb-10">
+            <section className="pt-6 sm:pt-10">
                 <div className="max-w-3xl">
                     <h1 className="text-4xl font-semibold text-white">Brett Conetta</h1>
                     <p className="mt-2 text-2xl text-slate-300">Full Stack Software Engineer</p>
                     <p className="mt-4 text-lg text-slate-300">Building production-ready systems across Java, Spring Boot, React, and AWS. Five years of experience shipping real software, leading teams, and caring about the craft.</p>
+                    <p className="mt-4 text-base text-slate-400">
+                        Based near Princeton, NJ. I prefer remote work and am open to hybrid or onsite roles
+                        for the right fit.
+                    </p>
+                    <p className="mt-2 text-base text-slate-400">
+                        Open to full-time roles and contract work—happy to connect by email or for a quick
+                        call.
+                    </p>
                 </div>
                 <div className="mt-6 flex w-full max-w-full flex-wrap items-center gap-4 sm:mt-8">
                 <nav
@@ -26,6 +35,16 @@ const Home = () => {
                     >
                         Contact me
                     </Link>
+                    <a
+                        href="/resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Resume (opens in new tab)"
+                        className="inline-flex shrink-0 items-center gap-2 rounded-md border border-slate-700 bg-slate-900/95 px-4 py-2 text-white transition-colors hover:bg-slate-700"
+                    >
+                        Resume
+                        <FaExternalLinkAlt className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                    </a>
                 </nav>
                 <nav
                     aria-label="Social links"
@@ -85,6 +104,30 @@ const Home = () => {
                 </ul>
             </section>
             <TechnicalHighlights />
+            <Recommendations />
+
+            <section id="get-in-touch" aria-labelledby="get-in-touch-heading">
+                <div className="max-w-2xl space-y-1">
+                    <h2 id="get-in-touch-heading" className="text-2xl font-semibold text-white">
+                        Get in touch
+                    </h2>
+                    <p className="text-slate-400">
+                        I&apos;m open to full-time positions and contract engagements. Whether you&apos;re
+                        hiring for a team role or need help on a defined project, I&apos;d like to hear from
+                        you.
+                    </p>
+                    <p className="text-slate-400">
+                        I&apos;m glad to set up a phone or video call to talk through fit, scope, and
+                        timing — no pressure, just a conversation.
+                    </p>
+                </div>
+                <Link
+                    to="/contact"
+                    className="mt-6 inline-flex shrink-0 rounded-md bg-cyan-700 px-4 py-2 text-white transition-colors hover:bg-cyan-600"
+                >
+                    Contact me
+                </Link>
+            </section>
         </div>
     )
 };
