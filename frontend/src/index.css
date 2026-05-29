@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --breakpoint-nav: 700px;
   --color-page: var(--color-slate-950);
   --color-surface: var(--color-slate-900);
   --color-surface-muted: var(--color-slate-800);
