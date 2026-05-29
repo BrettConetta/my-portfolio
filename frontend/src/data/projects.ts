@@ -11,7 +11,7 @@ export const projects: Project[] = [
     featured: true,
     links: {
       primary: {
-        label: 'View source on GitHub',
+        label: 'View on GitHub',
         href: 'https://github.com/BrettConetta/my-portfolio',
       },
     },
