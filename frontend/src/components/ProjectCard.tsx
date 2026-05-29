@@ -1,45 +1,11 @@
 import { FaTerminal } from 'react-icons/fa';
+import { linkOpensExternally } from '../lib/links';
 import type { Project, ProjectLink } from '../types/project';
-
-function isExternalHref(href: string): boolean {
-  return (
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('mailto:')
-  );
-}
-
-function projectLinkIsExternal(link: ProjectLink): boolean {
-  return link.external ?? isExternalHref(link.href);
-}
-
-function ProjectLinkButton({ link }: { link: ProjectLink }) {
-  const external = projectLinkIsExternal(link);
-  const className =
-    'inline-flex shrink-0 items-center justify-center rounded-md bg-cyan-700 px-4 py-2 text-white transition-colors hover:bg-cyan-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
-
-  if (external) {
-    return (
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-      >
-        {link.label}
-      </a>
-    );
-  }
-
-  return (
-    <a href={link.href} className={className}>
-      {link.label}
-    </a>
-  );
-}
+import Button from './Button';
+import Tag from './Tag';
 
 function ProjectLinkText({ link }: { link: ProjectLink }) {
-  const external = projectLinkIsExternal(link);
+  const external = linkOpensExternally(link.href, link.external);
   const className =
     'text-sm text-slate-400 underline-offset-4 transition-colors hover:text-sky-300 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
 
@@ -71,9 +37,7 @@ function ProjectCardMedia({ project }: { project: Project }) {
         aria-hidden
       >
         <div className="flex items-center gap-2 border-b border-slate-800 px-3 py-2">
-          <span className="rounded bg-slate-800 px-2 py-0.5 text-xs font-medium text-slate-300">
-            CLI tool
-          </span>
+          <Tag>CLI tool</Tag>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <FaTerminal className="h-14 w-14 text-slate-600" />
@@ -124,17 +88,23 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         {project.tags.length > 0 && (
           <ul className="flex flex-wrap gap-2" aria-label="Technologies">
             {project.tags.map((tag) => (
-              <li
-                key={tag}
-                className="rounded-md bg-slate-800 px-2 py-0.5 text-xs font-medium text-slate-300"
-              >
-                {tag}
+              <li key={tag}>
+                <Tag>{tag}</Tag>
               </li>
             ))}
           </ul>
         )}
         <div className="mt-auto flex flex-wrap items-center gap-3 pt-1">
-          <ProjectLinkButton link={project.links.primary} />
+          <Button
+            variant="primary"
+            href={project.links.primary.href}
+            openInNewTab={linkOpensExternally(
+              project.links.primary.href,
+              project.links.primary.external,
+            )}
+          >
+            {project.links.primary.label}
+          </Button>
           {secondaryLinks.map((link) => (
             <ProjectLinkText key={`${link.href}-${link.label}`} link={link} />
           ))}

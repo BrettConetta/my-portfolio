@@ -1,3 +1,6 @@
+import SectionHeader from './SectionHeader';
+import Tag from './Tag';
+
 type Highlight = {
   title: string;
   summary: string;
@@ -25,14 +28,11 @@ const highlights: Highlight[] = [
 const TechnicalHighlights = () => {
   return (
     <section id="technical-highlights" aria-labelledby="technical-highlights-heading">
-      <div className="space-y-1">
-        <h2 id="technical-highlights-heading" className="text-2xl font-semibold text-white">
-          Technical highlights
-        </h2>
-        <p className="text-slate-400">
-          Core areas I focus on when delivering production-ready software.
-        </p>
-      </div>
+      <SectionHeader
+        titleId="technical-highlights-heading"
+        title="Technical highlights"
+        description="Core areas I focus on when delivering production-ready software."
+      />
       <ul className="mt-6 grid gap-6 md:grid-cols-3">
         {highlights.map((highlight) => (
           <li key={highlight.title}>
@@ -41,11 +41,8 @@ const TechnicalHighlights = () => {
               <p className="mt-2 text-sm leading-relaxed text-slate-400">{highlight.summary}</p>
               <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${highlight.title} technologies`}>
                 {highlight.items.map((item) => (
-                  <li
-                    key={item}
-                    className="rounded-md bg-slate-800 px-2 py-0.5 text-xs font-medium text-slate-300"
-                  >
-                    {item}
+                  <li key={item}>
+                    <Tag>{item}</Tag>
                   </li>
                 ))}
               </ul>

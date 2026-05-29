@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
-import { FaExternalLinkAlt, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import Button from '../components/Button';
 import ProjectCard from '../components/ProjectCard';
 import Recommendations from '../components/Recommendations';
+import SectionHeader from '../components/SectionHeader';
 import TechnicalHighlights from '../components/TechnicalHighlights';
 import { getFeaturedProjects, projects } from '../data/projects';
 
@@ -29,22 +30,17 @@ const Home = () => {
                     aria-label="Primary actions"
                     className="flex flex-wrap items-center gap-4"
                 >
-                    <Link
-                        to="/contact"
-                        className="shrink-0 bg-cyan-700 hover:bg-cyan-600 text-white px-4 py-2 rounded-md transition-colors"
-                    >
+                    <Button variant="primary" href="/contact">
                         Contact me
-                    </Link>
-                    <a
+                    </Button>
+                    <Button
+                        variant="secondary"
                         href="/resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        openInNewTab
                         aria-label="Resume (opens in new tab)"
-                        className="inline-flex shrink-0 items-center gap-2 rounded-md border border-slate-700 bg-slate-900/95 px-4 py-2 text-white transition-colors hover:bg-slate-700"
                     >
                         Resume
-                        <FaExternalLinkAlt className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                    </a>
+                    </Button>
                 </nav>
                 <nav
                     aria-label="Social links"
@@ -80,20 +76,14 @@ const Home = () => {
 
             <section id="featured-projects" aria-labelledby="featured-projects-heading">
                 <div className="space-y-4">
-                    <div className="space-y-1">
-                        <h2 id="featured-projects-heading" className="text-2xl font-semibold text-white">
-                            Featured projects
-                        </h2>
-                        <p className="text-slate-400">
-                            Selected projects that show how I approach shipping reliable software.
-                        </p>
-                    </div>
-                    <Link
-                        to="/projects"
-                        className="inline-flex border border-slate-700 bg-slate-900/95 px-4 py-2 text-white rounded-md transition-colors hover:bg-slate-700"
-                    >
+                    <SectionHeader
+                        titleId="featured-projects-heading"
+                        title="Featured projects"
+                        description="Selected projects that show how I approach shipping reliable software."
+                    />
+                    <Button variant="secondary" href="/projects">
                         View all projects
-                    </Link>
+                    </Button>
                 </div>
                 <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {featuredProjects.map((project) => (
@@ -107,26 +97,27 @@ const Home = () => {
             <Recommendations />
 
             <section id="get-in-touch" aria-labelledby="get-in-touch-heading">
-                <div className="max-w-2xl space-y-1">
-                    <h2 id="get-in-touch-heading" className="text-2xl font-semibold text-white">
-                        Get in touch
-                    </h2>
-                    <p className="text-slate-400">
-                        I&apos;m open to full-time positions and contract engagements. Whether you&apos;re
-                        hiring for a team role or need help on a defined project, I&apos;d like to hear from
-                        you.
-                    </p>
-                    <p className="text-slate-400">
-                        I&apos;m glad to set up a phone or video call to talk through fit, scope, and
-                        timing — no pressure, just a conversation.
-                    </p>
-                </div>
-                <Link
-                    to="/contact"
-                    className="mt-6 inline-flex shrink-0 rounded-md bg-cyan-700 px-4 py-2 text-white transition-colors hover:bg-cyan-600"
-                >
+                <SectionHeader
+                    titleId="get-in-touch-heading"
+                    title="Get in touch"
+                    className="max-w-2xl"
+                    description={
+                        <>
+                            <p>
+                                I&apos;m open to full-time positions and contract engagements. Whether
+                                you&apos;re hiring for a team role or need help on a defined project,
+                                I&apos;d like to hear from you.
+                            </p>
+                            <p>
+                                I&apos;m glad to set up a phone or video call to talk through fit, scope,
+                                and timing — no pressure, just a conversation.
+                            </p>
+                        </>
+                    }
+                />
+                <Button variant="primary" href="/contact" className="mt-6">
                     Contact me
-                </Link>
+                </Button>
             </section>
         </div>
     )

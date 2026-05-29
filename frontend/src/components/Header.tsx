@@ -1,14 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { FaExternalLinkAlt } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 import { fetchNavLinks } from '../api/nav';
+import { linkOpensExternally } from '../lib/links';
 import type { NavLink as NavLinkItem } from '../types/nav';
+import Button from './Button';
 
 const navLinkClassName =
   'rounded-md px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-slate-700 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
-
-const resumeButtonClassName =
-  'inline-flex shrink-0 items-center gap-1.5 rounded-md border border-slate-700 bg-slate-900/95 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400';
 
 const defaultNavLinks: NavLinkItem[] = [
   { label: 'Home', href: '/' },
@@ -22,14 +20,8 @@ const defaultNavLinks: NavLinkItem[] = [
   },
 ];
 
-function isExternalLink(link: NavLinkItem) {
-  return (
-    link.external ?? (link.href.startsWith('http') || link.href.startsWith('mailto:'))
-  );
-}
-
 function NavButton({ link }: { link: NavLinkItem }) {
-  if (isExternalLink(link)) {
+  if (linkOpensExternally(link.href, link.external)) {
     return (
       <a
         href={link.href}
@@ -80,16 +72,14 @@ const Header = () => {
               <NavButton key={link.label} link={link} />
             ))}
           </nav>
-          <a
+          <Button
+            variant="secondary"
             href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            openInNewTab
             aria-label="Resume (opens in new tab)"
-            className={resumeButtonClassName}
           >
             Resume
-            <FaExternalLinkAlt className="h-3.5 w-3.5 shrink-0" aria-hidden />
-          </a>
+          </Button>
         </div>
       </div>
     </header>
