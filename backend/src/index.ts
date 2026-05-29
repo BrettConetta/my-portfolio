@@ -1,5 +1,7 @@
+import "dotenv/config";
 import cors from "cors";
 import express, { Request, Response } from "express";
+import contactRoute from "./contactRoute.js";
 
 const app = express();
 const PORT = process.env.PORT ?? 3001;
@@ -16,6 +18,8 @@ app.use(express.json());
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({ status: "ok" });
 });
+
+app.use("/api/contact", contactRoute);
 
 app.get("/api/nav", (_req: Request, res: Response) => {
   res.json([
