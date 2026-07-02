@@ -1,17 +1,14 @@
 import "dotenv/config";
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express, { type Request, type Response } from "express";
 import contactRoute from "./contactRoute.js";
 
 const app = express();
-const PORT = process.env.PORT ?? 3001;
 
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "http://localhost:5173",
-].filter((origin): origin is string => Boolean(origin));
-
-app.use(cors({ origin: allowedOrigins }));
+// CORS only needed for local dev (Vite on :5173 → API on :3001)
+if (!process.env.VERCEL) {
+  app.use(cors({ origin: "http://localhost:5173" }));
+}
 
 app.use(express.json());
 
@@ -21,6 +18,12 @@ app.get("/api/health", (_req: Request, res: Response) => {
 
 app.use("/api/contact", contactRoute);
 
-app.listen(PORT, () => {
-  console.log(`Backend listening on http://localhost:${PORT}`);
-});
+export default app;
+
+// Local dev only — Vercel imports the app and never calls listen()
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT ?? 3001;
+  app.listen(PORT, () => {
+    console.log(`Backend listening on http://localhost:${PORT}`);
+  });
+}
