@@ -1,5 +1,3 @@
-import { apiUrl } from "./baseUrl";
-
 export type ContactFormData = {
   name: string;
   email: string;
@@ -8,7 +6,7 @@ export type ContactFormData = {
 };
 
 export async function submitContactForm(data: ContactFormData): Promise<void> {
-  const response = await fetch(apiUrl("/api/contact"), {
+  const response = await fetch("/api/contact", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
