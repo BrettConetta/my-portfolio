@@ -20,14 +20,14 @@ cd frontend
 npm run dev
 ```
 
-Run both services for full-stack behavior (nav loads from the API via Vite’s `/api` proxy).
+Run both services for full-stack behavior (the contact form posts to the API via Vite’s `/api` proxy).
 
 ## Environment variables
 
 ### Local development
 The frontend uses relative `/api` URLs; Vite proxies them to `http://localhost:3001`. The backend allows `http://localhost:5173` for CORS.
 
-Nav works without extra config. The **contact form** needs a Resend API key in `backend/.env` (see [Contact form email](#contact-form-email) below).
+The **contact form** needs a Resend API key in `backend/.env` (see [Contact form email](#contact-form-email) below).
 
 ### Railway
 

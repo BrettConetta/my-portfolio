@@ -1,8 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { fetchNavLinks } from '../api/nav';
+import { navLinks } from '../data/nav';
 import { linkOpensExternally } from '../lib/links';
 import type { NavLink as NavLinkItem } from '../types/nav';
 import Button from './Button';
@@ -12,18 +11,6 @@ const navLinkClassName =
 
 const mobileNavLinkClassName =
   'block rounded-md px-4 py-3 text-base font-medium text-nav transition-colors hover:bg-interactive hover:text-heading focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus';
-
-const defaultNavLinks: NavLinkItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Contact', href: '/contact' },
-  {
-    label: 'GitHub',
-    href: 'https://github.com/BrettConetta',
-    external: true,
-  },
-];
 
 function NavButton({
   link,
@@ -72,14 +59,6 @@ const Header = () => {
     setMenuOpenAtPath((current) =>
       current === location.pathname ? null : location.pathname,
     );
-
-  const { data: navLinks = defaultNavLinks, isError } = useQuery({
-    queryKey: ['nav'],
-    queryFn: fetchNavLinks,
-    placeholderData: defaultNavLinks,
-  });
-
-  const links = isError ? defaultNavLinks : navLinks;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -140,7 +119,7 @@ const Header = () => {
               aria-label="Main navigation"
               className="hidden items-center gap-1 nav:flex"
             >
-              {links.map((link) => (
+              {navLinks.map((link) => (
                 <NavButton key={link.label} link={link} />
               ))}
             </nav>
@@ -178,7 +157,7 @@ const Header = () => {
                 : '-translate-y-2 opacity-0'
             }`}
           >
-            {links.map((link) => (
+            {navLinks.map((link) => (
               <li key={link.label}>
                 <NavButton
                   link={link}
